@@ -6,13 +6,10 @@
 		<script src="https://unpkg.com/vue@next"></script>
 	</head>
 	<body>
-		<div id="app">
-			{{ message }}
-		</div>
-		<button v-on:click="reverseMessage">反转</button>
+		<div id="app"></div>
 	</body>
 	<script type="text/javascript">
-		const app = {
+		const options = {
 			data() {
 				return {
 					message: 'HelloWorld'
@@ -20,10 +17,25 @@
 			},
 			methods: {
 				reverseMessage() {
-					this.message = this.message.split('').reverse().join()
+					this.message = this.message.split('').reverse().join('')
 				}
-			}
+			},
+			template: `
+				<h1>{{ message }}</h1>
+				<button v-on:click="reverseMessage">反转</button>
+				<list-item></list-item>
+			`
 		}
-		Vue.createApp(app).mount('#app')
+		const app = Vue.createApp(options)
+		app.component('list-item',{
+			template: `
+				<li>列表1</li>
+				<li>列表2</li>
+				<li>列表3</li>
+				<li>列表4</li>
+				<li>列表5</li>
+			`
+		})
+		app.mount('#app')
 	</script>
 </html>
