@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>生命周期函数</title>
+		<script src="https://unpkg.com/vue@next"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+	</body>
+	<script type="text/javascript">
+		const options = {
+			data() {
+				return {
+					message: 'lifecycle'
+				}
+			},
+			template: `
+				<h1>{{message}}</h1>
+				<button @click="changeMessage">反转</button>
+			`,
+			beforeCreate() {
+				console.log('beforeCreate')
+			},
+			created() {
+				console.log('created')
+			},
+			beforeMount() {
+				console.log('beforeMount')
+			},
+			mounted() {
+				console.log('mounted')
+			},
+			beforeUpdate() {
+				console.log('beforeUpdate')
+				console.log(document.getElementById('app').innerHTML)
+			},
+			updated() {
+				console.log('updated')
+				console.log(document.getElementById('app').innerHTML)
+			},
+			beforeUnmount() {
+			    console.log('beforeUnmount')
+			    console.log(document.getElementById('app').innerHTML)
+			},
+			unmounted() {
+			    console.log('unmounted')
+			    console.log(document.getElementById('app').innerHTML)
+			},
+			methods: {
+				changeMessage() {
+					this.message = this.message.split('').reverse().join('')
+				}
+			}
+		}
+		const app = Vue.createApp(options)
+		app.mount('#app')
+		app.unmount()
+	</script>
+</html>
