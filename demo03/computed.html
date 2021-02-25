@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>计算属性</title>
+		<script src="https://unpkg.com/vue@next"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+	</body>
+	<script type="text/javascript">
+		const options = {
+			data(){
+				return {
+					message: 'computed'
+				}
+			},
+			computed: {
+				reverseMessage(){
+					return this.message.split('').reverse().join('')
+				}
+			},
+			// methods: {
+			// 	reverseMessage(){
+			// 		return this.message.split('').reverse().join('')
+			// 	}
+			// },
+			template: `
+				<h1>{{reverseMessage}}</h1>
+			`
+		}
+		const app = Vue.createApp(options)
+		app.mount('#app')
+	</script>
+</html>
