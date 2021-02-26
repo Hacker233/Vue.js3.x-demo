@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>样式绑定</title>
+		<script src="https://unpkg.com/vue@next"></script>
+	</head>
+	<style type="text/css">
+		.isActive {
+			color: yellow;
+		}
+		.isFocus {
+			color: red;
+		}
+	</style>
+	<body>
+		<div id="app"></div>
+	</body>
+	<script type="text/javascript">
+		const options = {
+			data() {
+				return {
+					className: 'isActive',
+					isActive: true,
+					isFocus: false,
+					classNameArr: ['isActive','isFocus']
+				}
+			},
+			template: `
+				<h1 :class="className">样式绑定</h1>
+				<h2 :class="{'isActive':isActive,'isFocus':isFocus}">对象语法样式绑定</h2>
+				<h3 :class="['isActive',{'isFocus':isFocus}]">数组语法样式绑定</h3>
+			`
+		}
+		const app = Vue.createApp(options)
+		app.mount('#app')
+	</script>
+</html>
