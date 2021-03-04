@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>样式绑定</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<style type="text/css">
+
+</style>
+
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/javascript">
+    const options = {
+        data() {
+            return {
+                activeColor: 'red',
+                styleObject: {
+                    color: 'red',
+                    height: '100px'
+                }
+            }
+        },
+        template: `
+            <div :style="styleObject">我是内联样式<div>
+            <div :style="{ color: activeColor, height: '100px' }">我是内联样式<div>
+        `
+    }
+    const app = Vue.createApp(options)
+    app.mount('#app')
+</script>
+
+</html>
