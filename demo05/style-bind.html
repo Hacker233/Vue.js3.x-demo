@@ -21,12 +21,16 @@
                 styleObject: {
                     color: 'red',
                     height: '100px'
+                },
+                baseStyles: {
+                    color: 'blue'
                 }
             }
         },
         template: `
-            <div :style="styleObject">我是内联样式<div>
-            <div :style="{ color: activeColor, height: '100px' }">我是内联样式<div>
+            <div :style="styleObject">我是内联样式</div>
+            <div :style="{ color: activeColor, height: '100px' }">我是内联样式</div>
+            <div :style="[baseStyles]">我是数组绑定语法</div>
         `
     }
     const app = Vue.createApp(options)

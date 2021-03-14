@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>v-if条件判断</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/javascript">
+    const options = {
+        data() {
+            return {
+                isShow: 1
+            }
+        },
+        template: `
+				<button @click="changeState()">显示或隐藏</button>
+                <h1 v-if="isShow === 1">我是可以隐藏的标题</h1>
+                <h2 v-else-if="isShow === 2">我是v-else-if</h2>
+                <h3 v-else>我是v-else</h3>
+                <template v-if="true">
+                    <button>我是模板里面的按钮</button>
+                </template>
+			`,
+        methods: {
+            changeState() {
+                this.isShow++
+            }
+        },
+    }
+    const app = Vue.createApp(options)
+    app.mount('#app')
+</script>
+
+</html>
