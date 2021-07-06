@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>全局组件注册</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/javascript">
+    const options = {
+        data() {
+            return {
+                title: '我是根组件'
+            }
+        },
+        template: `
+            <!-- 根组件标题 -->
+            <h1>{{ title }}</h1>
+            <!-- 引用student-list子组件 -->
+            <student-list></student-list>
+		`,
+    }
+    const app = Vue.createApp(options);  // 创建一个Vue应用，相当于创建根组件
+    app.component('student-list', {      // 注册全局组件
+        data(){
+            return {
+                studentList: ['张三','李四','王五']
+            }
+        },
+        template: `
+            <ul>
+                <!-- 循环学生列表 -->
+                <li v-for="(item, index) in studentList" :key="index">
+                    <span>{{ index + 1 }} : {{ item }}</span>
+                </li>
+            </ul>
+        `
+    })
+    app.mount('#app');                  // 挂载
+</script>
+
+</html>

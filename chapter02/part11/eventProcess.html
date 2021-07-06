@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>事件详解</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/javascript">
+    const options = {
+        data() {
+            return {
+                count: 0
+            }
+        },
+        template: `
+            <!-- 添加点击事件 -->
+            <button @click="count += 1">增加1</button>
+            <!-- 不传参且未添加括号，会默认传DOM event -->
+            <button @click="countAdd">增加1</button>
+            <!-- 传递参数 -->
+            <button @click="countAddN(3, $event)">增加3</button>
+            <!-- 绑定多个方法 -->
+            <button @click="firstFun(1), secondFun(2)">增加3</button>
+            <p>{{count}}</p>
+            <input @keyup.alt.enter="onPageDown" />
+		`,
+        methods: {
+            countAdd(event) { // 对应指令中的countAdd方法
+                this.count += 1;
+                console.log(event); // 原生DOM event
+            },
+            countAddN(num, event) { // 接收自定义参数以及原生DOM event
+                this.count += num;
+                console.log(event);
+            },
+            firstFun(n) {
+                alert(n);
+            },
+            secondFun(n) {
+                alert(n);
+            },
+            onPageDown(event) {
+                console.log(event)
+            }
+        },
+    }
+    const app = Vue.createApp(options);
+    console.log(app)
+    app.mount('#app');
+</script>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>父子组件传值</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/javascript">
+    const StudentList = {               // 定义子组件
+        props: ['className'],           // 通过props属性接收父组件传过来的值
+        data() {
+            return {
+                studentList: ['张三', '李四', '王五']
+            }
+        },
+        template: `
+            <h1>{{className}}</h1>
+            <ul>
+                <!-- 循环学生列表 -->
+                <li v-for="(item, index) in studentList" :key="index">
+                    <span>{{ index + 1 }} : {{ item }}</span>
+                </li>
+            </ul>
+        `
+    }
+    const options = {
+        data() {
+            return {
+                className: '高三2班',
+                object: {
+                    id: 1,
+                    name: '张三'
+                }
+            }
+        },
+        components: {
+            StudentList                   // 注册子组件
+        },
+        template: `
+            <h1>学生列表</h1>
+            <!-- 调用子组件,添加自定义属性，传静态值给子组件 -->
+            <student-list :className="className"></student-list>
+            <!-- 使用不带参数的v-bind取代v-bind:prop-name -->
+            <student-list v-bind="object"></student-list>
+            <!-- 相当于 -->
+            <student-list :id="object.id" :name="object.name"></student-list>
+		`,
+    }
+    const app = Vue.createApp(options);  // 创建一个Vue应用，相当于创建根组件
+    app.mount('#app')
+</script>
+
+</html>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>v-for列表渲染</title>
+    <title>v-for列表渲染-数组</title>
     <script src="https://unpkg.com/vue@next"></script>
 </head>
 
@@ -26,10 +26,15 @@
                 }]
             }
         },
+        mounted() {
+            for (item of this.studentList) {
+                console.log(item)
+            }
+        },
         template: `
             <ul>
-                <li v-for="item in studentList">
-                    <span>姓名:{{item.name}}</span>
+                <li v-for="(item,index) in studentList" :key="index">
+                    <span>{{index + 1}}姓名:{{item.name}}</span>
                     <br/>
                     <span>年纪:{{item.age}}</span>   
                 </li>

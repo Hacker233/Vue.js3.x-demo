@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>双向数据绑定</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/javascript">
+    const options = {
+        data() {
+            return {
+                message: '我是输入框的默认值',
+                checked: true,
+                checkedNames: [],
+                picked: '', // 选中项
+                selected: 'A', // 下拉选中项,默认选中A项
+                selectedMultiple: ['A', 'B'], // 多选下拉选项选中的项
+                options: [{
+                        text: 'One',
+                        value: 'A'
+                    },
+                    {
+                        text: 'Two',
+                        value: 'B'
+                    },
+                    {
+                        text: 'Three',
+                        value: 'C'
+                    }
+                ] // 下拉选项
+            }
+        },
+        template: `
+            <input v-model="message" placeholder="提示语" />
+            <p>{{message}}</p>
+            <textarea v-model="message" placeholder="多行输入"></textarea>
+            <input type="checkbox" id="checkbox" v-model="checked" />
+            <label for="checkbox">{{ checked }}</label>
+            <!-- 多个复选框，绑定到数组 -->
+            <div id="v-model-multiple-checkboxes">
+                <!-- 第一个复选框 -->
+                <input type="checkbox" id="zhangsan" value="张三" v-model="checkedNames" />
+                <label for="zhangsan">张三</label>
+                <!-- 第二个复选框 -->
+                <input type="checkbox" id="lisi" value="李四" v-model="checkedNames" />
+                <label for="lisi">李四</label>
+                <!-- 第三个复选框 -->
+                <input type="checkbox" id="wangwu" value="王五" v-model="checkedNames" />
+                <label for="wangwu">王五</label>
+                <br />
+                <span>选中的人: {{ checkedNames }}</span>
+            </div>
+            <!-- 两个单选框，将选中的单选框value值存储至picked变量 -->
+            <div id="v-model-radiobutton">
+                <input type="radio" id="one" value="12" v-model="picked" />
+                <label for="one">男</label>
+                <br />
+                <input type="radio" id="two" value="女" v-model="picked" />
+                <label for="two">女</label>
+                <br />
+                <span>选中项: {{ picked }}</span>
+            </div>
+            <!-- 下拉选项 -->
+            <div id="v-model-select" class="demo">
+                <select v-model="selected">
+                    <option value="A">选项A</option>
+                    <option>B</option>
+                    <option>C</option>
+                </select>
+                <span>选中项: {{ selected }}</span>
+            </div>
+            <!-- 多选下拉选项:默认选中A和B -->
+            <div id="v-model-multiple-select" class="demo">
+                <select v-model="selectedMultiple" multiple>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option>C</option>
+                </select>
+                <span>选中项: {{ selectedMultiple }}</span>
+            </div>
+            <!-- 利用v-for指令循环出option元素 -->
+            <div id="v-model-select-dynamic" class="demo">
+                <select v-model="selected">
+                    <option v-for="option in options" :value="option.value">
+                    {{ option.text }}
+                    </option>
+                </select>
+                <span>选中项: {{ selected }}</span>
+            </div>
+		`,
+    }
+    const app = Vue.createApp(options);
+    app.mount('#app');
+</script>
+
+</html>

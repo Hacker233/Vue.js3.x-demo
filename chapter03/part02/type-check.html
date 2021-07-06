@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>props类型校验</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/javascript">
+    const ChildCom = {                  // 定义子组件
+        props: {
+            value: Number,               // 传过来的值必须为Number类型
+            value1: [Number,String],
+            value3: {
+                type: Object,
+                default: () => {    // 对象或数组默认值必须从一个工厂函数获取
+                    return { message: 'hello' }
+                }
+            },
+            value4: {
+                validator: (value) => {
+                    return ['success', 'warning', 'danger'].indexOf(value) !== -1     // 这个值必须匹配下列字符串中的一个
+                }
+            },
+            value5: {
+                type: Function,
+                // 这不是一个工厂函数,这是一个用作默认值的函数
+                default: function() {
+                    return '我是函数默认值'
+                }
+            }
+        },        
+        template: `
+        `,   
+        mounted() {                                  // 生命周期函数
+            console.log(this.value)
+        },
+    }
+    const options = {
+        components: {
+            ChildCom                    // 注册子组件
+        },
+        template: `
+            <!-- 传递数值类型给子组件 -->
+            <child-com :value="12"></child-com>
+		`,
+    }
+    const app = Vue.createApp(options);  // 创建一个Vue应用，相当于创建根组件
+    app.mount('#app')
+</script>
+
+</html>

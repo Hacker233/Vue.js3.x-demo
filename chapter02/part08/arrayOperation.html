@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>数组更新检测</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/javascript">
+    const options = {
+        data() {
+            return {
+                studentList: ['张三', '李四', '王五'],
+                scoreList: [68, 76, 54, 90, 80]
+            }
+        },
+        template: `
+            <ul>
+                <li v-for="(item,index) in studentList" :key="item+index">
+                    <span>姓名:{{item}}</span> 
+                </li>
+            </ul>
+            <ul>
+                <li v-for="(item,index) in scoreList" :key="item+index">
+                    <span>成绩:{{item}}</span> 
+                </li>
+            </ul>
+            <button @click="addUnshiftStudent()">首位添加学生</button>
+            <button @click="addPushStudent()">末尾添加学生</button>
+            <button @click="delShiftStudent()">删除第一位学生</button>
+            <button @click="delPopStudent()">删除最后一位学生</button>
+            <button @click="delSpliceStudent()">删除第二位学生</button>
+            <button @click="addSpliceStudent()">添加一位学生</button>
+            <button @click="scoreSort()">成绩排序</button>
+            <button @click="scoreReverse()">成绩倒序</button>
+            <button @click="newScoreSlice()">返回新数组</button>
+            <button @click="concatArray()">连接数组</button>
+            <button @click="filterArray()">打印成绩大于70的分数</button>
+		`,
+        methods: {
+            // 首位添加学生
+            addUnshiftStudent() {
+                this.studentList.unshift('赵六');
+            },
+            // 末尾添加学生
+            addPushStudent() {
+                this.studentList.push('孙七');
+            },
+            // 删除第一位学生
+            delShiftStudent() {
+                let delStudent = this.studentList.shift();
+                console.log("删除学生名：", delStudent);
+            },
+            // 删除第一位学生
+            delPopStudent() {
+                let delStudent = this.studentList.pop();
+                console.log("删除学生名：", delStudent);
+            },
+            // 删除第二位学生
+            delSpliceStudent() {
+                let delStudent = this.studentList.splice(1, 1);
+                console.log("删除学生名：", delStudent);
+            },
+            // 添加一位学生
+            addSpliceStudent() {
+                this.studentList.splice(1, 0, '我是插班生');
+            },
+            // 按照成绩排序
+            scoreSort() {
+                this.scoreList.sort((a, b) => {
+                    return a - b
+                });
+            },
+            // 将成绩倒序
+            scoreReverse() {
+                this.scoreList.reverse();
+            },
+            // 返回一个新的数组
+            newScoreSlice() {
+                let newArr = this.scoreList.slice(0, 1);
+                console.log("返回的新数组：", newArr)
+            },
+            // 连接两个数组
+            concatArray() {
+                let newArr = this.studentList.concat(this.scoreList);
+                console.log("连接后的数组:", newArr)
+            },
+            // 筛选数组
+            filterArray() {
+                let newArr = this.scoreList.filter((item) => {
+                    return item > 70;
+                });
+                console.log("分数大于70：", newArr)
+            }
+        }
+    }
+    const app = Vue.createApp(options)
+    app.mount('#app')
+</script>
+
+</html>
