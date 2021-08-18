@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>自定义事件</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/javascript">
+    const ChildCom = {                // 定义子组件
+        data() {
+            return {
+                msg: '我是子组件数据'
+            }
+        },
+        template: `
+            <!-- 子组件按钮，点击触发方法 -->
+            <button @click="handleChange">我是子组件</button>
+        `,
+        methods: {
+            handleChange() {
+                this.$emit('handle', this.msg); // 自定义事件handle
+            }
+        }
+    }
+    const options = {
+        components: {
+            ChildCom                            // 注册子组件
+        },
+        template: `
+            <!-- 监听子组件自定义的handle事件 -->
+            <child-com @handle="parentChage"></child-com>
+		`,
+        methods: {
+            parentChage(value) {                // 子组件触发父组件的方法
+                console.log(value)
+            }
+        }
+    }
+    const app = Vue.createApp(options);  // 创建一个Vue应用，相当于创建根组件
+    app.mount('#app')
+</script>
+
+</html>

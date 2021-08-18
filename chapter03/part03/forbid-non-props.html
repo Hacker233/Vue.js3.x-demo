@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>禁用attribute继承</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script type="text/javascript">
+    const ChildCom = {               // 定义子组件
+        inheritAttrs: false,         // 禁用Attribute继承
+        template: `
+            <div>
+                <input v-bind="$attrs" />
+            </div>
+        `
+    }
+    const options = {
+        components: {
+            ChildCom                   // 注册子组件
+        },
+        template: `
+            <!-- child-com子组件-->
+            <child-com data-status="activated"></child-com>
+		`,
+    }
+    const app = Vue.createApp(options);  // 创建一个Vue应用，相当于创建根组件
+    app.mount('#app')
+</script>
+
+
+</html>
